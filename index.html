@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AP Calculus Practice</title>
+  <meta name="description" content="Free, open AP Calculus AB/BC practice problems by unit and topic, with worked solutions." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>∫</text></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- MathJax for rendering LaTeX -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$']], displayMath: [['$$', '$$']] },
+      svg: { fontCache: 'global' },
+      startup: { typeset: false }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" id="MathJax-script" async></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <h1>∫ AP Calculus Practice</h1>
+      <p class="tagline">Pick a unit or topic. Get AP-style problems with worked solutions. Free and open to everyone.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- ============ SELECTION SCREEN ============ -->
+    <section id="selection-screen">
+      <div class="controls">
+        <div class="control">
+          <label for="course-filter">Course</label>
+          <select id="course-filter">
+            <option value="all">AB &amp; BC</option>
+            <option value="AB">AB only</option>
+            <option value="BC">BC only</option>
+          </select>
+        </div>
+        <div class="control">
+          <label for="difficulty-filter">Difficulty</label>
+          <select id="difficulty-filter">
+            <option value="all">Any difficulty</option>
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+          </select>
+        </div>
+        <div class="control">
+          <label for="count-filter">Problems per set</label>
+          <select id="count-filter">
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+            <option value="999">All available</option>
+          </select>
+        </div>
+      </div>
+
+      <h2 class="section-title">Choose a unit</h2>
+      <div id="unit-grid" class="unit-grid"><!-- units injected here --></div>
+
+      <div class="start-all">
+        <button id="start-mixed" class="btn btn-primary">Start a mixed set (all selected units)</button>
+      </div>
+    </section>
+
+    <!-- ============ TOPIC DRILL-DOWN (modal-ish panel) ============ -->
+    <section id="topic-screen" class="hidden">
+      <button class="btn btn-ghost back-btn" data-back="selection">← Back to units</button>
+      <h2 id="topic-unit-title" class="section-title"></h2>
+      <p class="muted">Choose a topic, or practice the whole unit.</p>
+      <div id="topic-list" class="topic-list"></div>
+      <button id="start-whole-unit" class="btn btn-primary">Practice the whole unit</button>
+    </section>
+
+    <!-- ============ QUIZ SCREEN ============ -->
+    <section id="quiz-screen" class="hidden">
+      <div class="quiz-top">
+        <button class="btn btn-ghost back-btn" data-back="selection">← Exit</button>
+        <div id="progress" class="progress"></div>
+      </div>
+      <div class="scope-label" id="scope-label"></div>
+
+      <article class="question-card">
+        <div class="q-meta" id="q-meta"></div>
+        <div class="q-stem" id="q-stem"></div>
+        <div class="choices" id="choices"></div>
+        <div class="solution hidden" id="solution">
+          <h3>Solution</h3>
+          <div id="solution-body"></div>
+        </div>
+      </article>
+
+      <div class="quiz-nav">
+        <button id="next-btn" class="btn btn-primary" disabled>Next →</button>
+      </div>
+    </section>
+
+    <!-- ============ RESULTS SCREEN ============ -->
+    <section id="results-screen" class="hidden">
+      <h2 class="section-title">Set complete</h2>
+      <div id="score-summary" class="score-summary"></div>
+      <div class="results-actions">
+        <button id="retry-btn" class="btn btn-primary">New set, same scope</button>
+        <button class="btn btn-ghost" data-back="selection">Back to units</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>
+        Open-source &amp; free to use. Not affiliated with or endorsed by the College Board.
+        AP® is a trademark registered by the College Board.
+      </p>
+      <p><a id="repo-link" href="#" target="_blank" rel="noopener">Contribute a problem on GitHub →</a></p>
+    </div>
+  </footer>
+
+  <script src="data/units.js"></script>
+  <script src="data/questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
