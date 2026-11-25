@@ -42,7 +42,7 @@
     }
   }
 
-  function screens() { return ["selection-screen", "topic-screen", "quiz-screen", "results-screen"]; }
+  function screens() { return ["selection-screen", "quiz-screen", "results-screen"]; }
   function goTo(screenId) {
     stopTimer();
     screens().forEach(function (s) { hide(s); });
@@ -121,58 +121,138 @@
     return item.parts.reduce(function (s, p) { return s + p.points; }, 0);
   }
 
-  // ---------- unit grid ----------
+  // ---------- selection (multi-select units & topics) ----------
+  var selected = {}; // key "unitId::topic" -> true
+
+  function topicKey(uid, t) { return uid + "::" + t; }
+  function availableTopics(u) {
+    return u.topics.filter(function (t) {
+      return filterItems(function (q) { return q.unit === u.id && q.topic === t; }).length > 0;
+    });
+  }
+  function unitState(u) {
+    var tops = availableTopics(u);
+    if (!tops.length) return "none";
+    var n = tops.filter(function (t) { return selected[topicKey(u.id, t)]; }).length;
+    return n === 0 ? "none" : (n === tops.length ? "full" : "partial");
+  }
+
   function renderUnits() {
     var grid = $("unit-grid");
     grid.innerHTML = "";
     var noun = state.type === "frq" ? "FRQ" : "problem";
-    visibleUnits().forEach(function (u) {
+
+    // Drop selections no longer valid under the current type/course/difficulty.
+    var vis = visibleUnits();
+    Object.keys(selected).forEach(function (k) {
+      var uid = parseInt(k.split("::")[0], 10);
+      var topic = k.split("::").slice(1).join("::");
+      var u = UNITS.find(function (x) { return x.id === uid; });
+      if (!u || !vis.some(function (v) { return v.id === uid; }) || availableTopics(u).indexOf(topic) === -1) {
+        delete selected[k];
+      }
+    });
+
+    vis.forEach(function (u) {
+      var tops = availableTopics(u);
       var n = filterItems(function (q) { return q.unit === u.id; }).length;
-      var card = el("button", "unit-card");
+      var st = unitState(u);
       var bcClass = u.course === "BC" ? " bc" : "";
-      card.innerHTML =
+
+      var item = el("div", "unit-item" + (st === "full" ? " selected" : st === "partial" ? " partial" : ""));
+      var head = el("div", "unit-head");
+
+      var selBtn = el("button", "unit-select");
+      selBtn.innerHTML =
+        '<span class="u-mark" aria-hidden="true"></span>' +
         '<span class="u-num">Unit ' + u.id + "</span>" +
         '<span class="u-title">' + u.title + "</span>" +
-        '<span class="u-foot"><span class="badge' + bcClass + '">' + u.course + "</span>" +
-        "<span>" + n + " " + noun + (n === 1 ? "" : "s") + "</span></span>";
-      card.disabled = n === 0;
-      if (n === 0) card.style.opacity = 0.5;
-      card.addEventListener("click", function () { openUnit(u); });
-      grid.appendChild(card);
+        '<span class="badge' + bcClass + '">' + u.course + "</span>" +
+        '<span class="u-count">' + n + " " + noun + (n === 1 ? "" : "s") + "</span>";
+      selBtn.addEventListener("click", function () { toggleUnit(u); });
+      head.appendChild(selBtn);
+
+      var panel = el("div", "topic-panel");
+      if (tops.length) {
+        var expBtn = el("button", "unit-expand", "▾");
+        expBtn.setAttribute("aria-label", "Show topics in Unit " + u.id);
+        expBtn.addEventListener("click", function () {
+          panel.classList.toggle("open");
+          expBtn.classList.toggle("open");
+        });
+        head.appendChild(expBtn);
+      }
+      item.appendChild(head);
+
+      tops.forEach(function (t) {
+        var cnt = filterItems(function (q) { return q.unit === u.id && q.topic === t; }).length;
+        var row = el("label", "topic-check" + (selected[topicKey(u.id, t)] ? " on" : ""));
+        var cb = el("input");
+        cb.type = "checkbox";
+        cb.checked = !!selected[topicKey(u.id, t)];
+        cb.addEventListener("change", function () { toggleTopic(u, t); });
+        row.appendChild(cb);
+        row.appendChild(el("span", "tc-name", t));
+        row.appendChild(el("span", "tc-count", cnt + " " + noun + (cnt === 1 ? "" : "s")));
+        panel.appendChild(row);
+      });
+      item.appendChild(panel);
+      grid.appendChild(item);
     });
-    $("start-mixed").textContent = state.type === "frq"
-      ? "Start a mixed set of free-response questions"
-      : "Start a mixed set (all selected units)";
+    updateConfirmBar();
   }
 
-  // ---------- topic drill-down ----------
-  function openUnit(u) {
-    state.selectedUnit = u;
-    $("topic-unit-title").textContent = "Unit " + u.id + ": " + u.title;
-    var list = $("topic-list");
-    list.innerHTML = "";
-    var noun = state.type === "frq" ? "FRQ" : "problem";
-    u.topics.forEach(function (topic) {
-      var qs = filterItems(function (q) { return q.unit === u.id && q.topic === topic; });
-      if (qs.length === 0) return;
-      var item = el("button", "topic-item");
-      item.innerHTML = "<span>" + topic + "</span><span class='count'>" + qs.length + " " + noun + (qs.length === 1 ? "" : "s") + "</span>";
-      item.addEventListener("click", function () {
-        startQuiz(qs, "Unit " + u.id + " · " + topic, { type: "topic", unitId: u.id, topic: topic });
-      });
-      list.appendChild(item);
+  function toggleUnit(u) {
+    var tops = availableTopics(u);
+    var full = unitState(u) === "full";
+    tops.forEach(function (t) {
+      if (full) delete selected[topicKey(u.id, t)];
+      else selected[topicKey(u.id, t)] = true;
     });
-    if (!list.children.length) {
-      list.appendChild(el("p", "muted", "No " + noun + "s match your current filters. Try changing the type, course, or difficulty."));
-    }
-    goTo("topic-screen");
+    renderUnits();
   }
-  function startWholeUnit() {
-    var u = state.selectedUnit;
-    startQuiz(filterItems(function (q) { return q.unit === u.id; }), "Unit " + u.id + ": " + u.title, { type: "unit", unitId: u.id });
+  function toggleTopic(u, t) {
+    var k = topicKey(u.id, t);
+    if (selected[k]) delete selected[k]; else selected[k] = true;
+    renderUnits();
   }
-  function startMixed() {
-    startQuiz(filterItems(function () { return true; }), "Mixed set", { type: "mixed" });
+  function selectAllUnits() {
+    visibleUnits().forEach(function (u) {
+      availableTopics(u).forEach(function (t) { selected[topicKey(u.id, t)] = true; });
+    });
+    renderUnits();
+  }
+  function clearSelection() { selected = {}; renderUnits(); }
+
+  function selectedPool() {
+    return filterItems(function (q) { return selected[topicKey(q.unit, q.topic)]; });
+  }
+  function selectedUnitCount() {
+    var us = {};
+    Object.keys(selected).forEach(function (k) { us[k.split("::")[0]] = true; });
+    return Object.keys(us).length;
+  }
+  function updateConfirmBar() {
+    var keys = Object.keys(selected);
+    var bar = $("confirm-bar");
+    if (!keys.length) { bar.classList.add("hidden"); return; }
+    bar.classList.remove("hidden");
+    var pool = selectedPool();
+    var noun = state.type === "frq" ? "FRQ" : "question";
+    $("selection-summary").textContent =
+      keys.length + " topic" + (keys.length === 1 ? "" : "s") +
+      " · " + selectedUnitCount() + " unit" + (selectedUnitCount() === 1 ? "" : "s") +
+      " · " + pool.length + " " + noun + (pool.length === 1 ? "" : "s") + " available";
+    $("confirm-start").disabled = pool.length === 0;
+    $("confirm-start").textContent = "Start practice (" + Math.min(pool.length, filters().count) + ") →";
+  }
+
+  function confirmStart() {
+    var pool = selectedPool();
+    if (!pool.length) return;
+    var label = selectedUnitCount() + " unit" + (selectedUnitCount() === 1 ? "" : "s") +
+                ", " + Object.keys(selected).length + " topic" + (Object.keys(selected).length === 1 ? "" : "s");
+    startQuiz(pool, label, { type: "selection", keys: Object.keys(selected).slice() });
   }
 
   // ---------- quiz flow ----------
@@ -335,16 +415,12 @@
 
   function retrySameScope() {
     var s = state.lastScope;
-    if (!s) return goTo("selection-screen");
-    if (s.type === "mixed") return startMixed();
-    if (s.type === "unit") {
-      var u = UNITS.find(function (x) { return x.id === s.unitId; });
-      return startQuiz(filterItems(function (q) { return q.unit === s.unitId; }), "Unit " + u.id + ": " + u.title, s);
-    }
-    if (s.type === "topic") {
-      return startQuiz(filterItems(function (q) { return q.unit === s.unitId && q.topic === s.topic; }), "Unit " + s.unitId + " · " + s.topic, s);
-    }
-    goTo("selection-screen");
+    if (!s || s.type !== "selection") return goTo("selection-screen");
+    var keySet = {};
+    s.keys.forEach(function (k) { keySet[k] = true; });
+    var pool = filterItems(function (q) { return keySet[topicKey(q.unit, q.topic)]; });
+    if (!pool.length) return goTo("selection-screen");
+    startQuiz(pool, state.scopeLabel, s);
   }
 
   // ---------- wiring ----------
@@ -358,9 +434,11 @@
     ["course-filter", "difficulty-filter"].forEach(function (id) {
       $(id).addEventListener("change", renderUnits);
     });
+    $("count-filter").addEventListener("change", updateConfirmBar);
 
-    $("start-mixed").addEventListener("click", startMixed);
-    $("start-whole-unit").addEventListener("click", startWholeUnit);
+    $("select-all").addEventListener("click", selectAllUnits);
+    $("clear-selection").addEventListener("click", clearSelection);
+    $("confirm-start").addEventListener("click", confirmStart);
     $("next-btn").addEventListener("click", nextItem);
     $("retry-btn").addEventListener("click", retrySameScope);
     document.querySelectorAll("[data-back]").forEach(function (b) {

@@ -69,21 +69,19 @@
         </div>
       </div>
 
-      <h2 class="section-title">Choose a unit</h2>
-      <div id="unit-grid" class="unit-grid"><!-- units injected here --></div>
-
-      <div class="start-all">
-        <button id="start-mixed" class="btn btn-primary">Start a mixed set (all selected units)</button>
+      <div class="select-actions">
+        <p class="select-hint">Tap a unit to select the whole unit, or expand it (▾) to choose individual topics. Combine any units and topics, then confirm.</p>
+        <div class="bulk">
+          <button id="select-all" class="btn btn-ghost">Select all</button>
+          <button id="clear-selection" class="btn btn-ghost">Clear</button>
+        </div>
       </div>
-    </section>
+      <div id="unit-grid" class="unit-list"><!-- units injected here --></div>
 
-    <!-- ============ TOPIC DRILL-DOWN (modal-ish panel) ============ -->
-    <section id="topic-screen" class="hidden">
-      <button class="btn btn-ghost back-btn" data-back="selection">← Back to units</button>
-      <h2 id="topic-unit-title" class="section-title"></h2>
-      <p class="muted">Choose a topic, or practice the whole unit.</p>
-      <div id="topic-list" class="topic-list"></div>
-      <button id="start-whole-unit" class="btn btn-primary">Practice the whole unit</button>
+      <div id="confirm-bar" class="confirm-bar hidden">
+        <span id="selection-summary" class="selection-summary"></span>
+        <button id="confirm-start" class="btn btn-primary" disabled>Start practice →</button>
+      </div>
     </section>
 
     <!-- ============ QUIZ SCREEN ============ -->
@@ -136,6 +134,7 @@
   <script src="data/units.js"></script>
   <script src="data/questions.js"></script>
   <script src="data/questions-extra.js"></script>
+  <script src="data/questions-extra2.js"></script>
   <script src="data/frq.js"></script>
   <script src="data/frq-extra.js"></script>
   <script src="app.js"></script>
