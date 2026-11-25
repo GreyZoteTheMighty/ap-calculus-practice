@@ -89,7 +89,6 @@
     };
   }
   function courseMatches(item, course) {
-    if (course === "all") return true;
     if (course === "AB") return item.course.indexOf("AB") !== -1;
     if (course === "BC") return item.course.indexOf("BC") !== -1;
     return true;
@@ -105,7 +104,6 @@
   function visibleUnits() {
     var course = $("course-filter").value;
     return UNITS.filter(function (u) {
-      if (course === "all") return true;
       if (course === "AB") return u.course.indexOf("AB") !== -1;
       if (course === "BC") return u.course.indexOf("BC") !== -1;
       return true;
