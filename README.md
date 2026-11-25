@@ -13,6 +13,8 @@ no install, no cost — it runs entirely in the browser.
 
 - **Choose your scope** — practice a whole unit, a single topic, or a mixed set across everything.
 - **All 10 CED units** — AB (Units 1–8) and BC (Units 1–10).
+- **Two question types** — multiple choice (180 problems) and **free response** (multi-part FRQs with a scoring rubric you self-score, as on the real exam).
+- **Timed mode** — an optional AP-pacing countdown (≈2 min per multiple-choice question, ≈6 min per FRQ); the set auto-submits when time runs out.
 - **Filters** — by course (AB / BC), by difficulty (Easy / Medium / Hard), and set length.
 - **Worked solutions** — every problem explains the method, not just the answer.
 - **Real math rendering** — LaTeX via [MathJax](https://www.mathjax.org/).
@@ -79,6 +81,22 @@ Guidelines:
 - Keep solutions short but show the method.
 - Topic strings should match an entry in [`data/units.js`](data/units.js) so it appears in the
   topic drill-down (new topics can be added there).
+
+**Free-response questions** live in [`data/frq.js`](data/frq.js) (the `AP_CALC_FRQ` array). Each
+FRQ has a `context`, a `calculator` flag, and a list of `parts`, where every part carries its
+own `prompt`, `points`, and `solution`:
+
+```js
+{
+  id: "frq-u8-3", unit: 8, course: "AB/BC", topic: "Area between curves",
+  difficulty: "Medium", calculator: false,
+  context: "Let $R$ be the region bounded by $y=x$ and $y=x^2$.",
+  parts: [
+    { label: "a", points: 2, prompt: "Find the area of $R$.", solution: "..." },
+    { label: "b", points: 2, prompt: "Find the volume ...",    solution: "..." }
+  ]
+}
+```
 
 Open a pull request with your additions — contributions of all difficulty levels are welcome.
 

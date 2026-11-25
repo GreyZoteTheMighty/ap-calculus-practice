@@ -30,6 +30,13 @@
     <section id="selection-screen">
       <div class="controls">
         <div class="control">
+          <label for="type-filter">Question type</label>
+          <select id="type-filter">
+            <option value="mc">Multiple choice</option>
+            <option value="frq">Free response</option>
+          </select>
+        </div>
+        <div class="control">
           <label for="course-filter">Course</label>
           <select id="course-filter">
             <option value="all">AB &amp; BC</option>
@@ -52,6 +59,13 @@
             <option value="5">5</option>
             <option value="10" selected>10</option>
             <option value="999">All available</option>
+          </select>
+        </div>
+        <div class="control">
+          <label for="timed-toggle">Timed mode</label>
+          <select id="timed-toggle">
+            <option value="off">Off</option>
+            <option value="on">On (AP pacing)</option>
           </select>
         </div>
       </div>
@@ -77,14 +91,18 @@
     <section id="quiz-screen" class="hidden">
       <div class="quiz-top">
         <button class="btn btn-ghost back-btn" data-back="selection">← Exit</button>
-        <div id="progress" class="progress"></div>
+        <div class="quiz-top-right">
+          <div id="timer" class="timer hidden"></div>
+          <div id="progress" class="progress"></div>
+        </div>
       </div>
       <div class="scope-label" id="scope-label"></div>
 
       <article class="question-card">
         <div class="q-meta" id="q-meta"></div>
+        <div class="q-context" id="q-context"></div>
         <div class="q-stem" id="q-stem"></div>
-        <div class="choices" id="choices"></div>
+        <div id="answer-area"></div>
         <div class="solution hidden" id="solution">
           <h3>Solution</h3>
           <div id="solution-body"></div>
@@ -119,6 +137,7 @@
 
   <script src="data/units.js"></script>
   <script src="data/questions.js"></script>
+  <script src="data/frq.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
