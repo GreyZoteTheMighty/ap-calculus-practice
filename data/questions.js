@@ -896,5 +896,455 @@ window.AP_CALC_QUESTIONS = [
     choices: ["$2$", "$0$", "$1$", "$\\infty$"],
     answer: 1,
     solution: "$\\left|\\dfrac{a_{n+1}}{a_n}\\right|=\\dfrac{2^{n+1}/(n+1)!}{2^n/n!}=\\dfrac{2}{n+1}\\to 0$, so the series converges (limit $<1$)."
+  },
+
+  /* ===================== UNIT 1: more ===================== */
+  {
+    id: "u1-13", unit: 1, course: "AB/BC", topic: "Estimating & evaluating limits", difficulty: "Easy",
+    stem: "Evaluate $\\displaystyle\\lim_{x\\to 0}\\frac{\\tan x}{x}$.",
+    choices: ["$0$", "$1$", "$\\infty$", "The limit does not exist"],
+    answer: 1,
+    solution: "$\\dfrac{\\tan x}{x}=\\dfrac{\\sin x}{x}\\cdot\\dfrac{1}{\\cos x}\\to 1\\cdot 1=1$ as $x\\to 0$."
+  },
+  {
+    id: "u1-14", unit: 1, course: "AB/BC", topic: "Algebraic limit techniques", difficulty: "Easy",
+    stem: "Evaluate $\\displaystyle\\lim_{x\\to 2}\\frac{x^2-x-2}{x-2}$.",
+    choices: ["$1$", "$3$", "$0$", "The limit does not exist"],
+    answer: 1,
+    solution: "Factor: $\\dfrac{(x-2)(x+1)}{x-2}=x+1\\to 3$."
+  },
+  {
+    id: "u1-15", unit: 1, course: "AB/BC", topic: "Limits at infinity", difficulty: "Medium",
+    stem: "Evaluate $\\displaystyle\\lim_{x\\to\\infty}\\frac{2x^3+1}{x^2+3}$.",
+    choices: ["$0$", "$2$", "$\\infty$", "$\\dfrac{2}{3}$"],
+    answer: 2,
+    solution: "The numerator's degree ($3$) exceeds the denominator's ($2$), so the limit is $\\infty$."
+  },
+  {
+    id: "u1-16", unit: 1, course: "AB/BC", topic: "Continuity & discontinuities", difficulty: "Medium",
+    stem: "For what value of $a$ is $f(x)=\\begin{cases}ax+1,&x\\le 1\\\\ x^2+2,&x>1\\end{cases}$ continuous at $x=1$?",
+    choices: ["$1$", "$2$", "$3$", "No value works"],
+    answer: 1,
+    solution: "Left value: $a+1$; right limit: $1+2=3$. Continuity requires $a+1=3$, so $a=2$."
+  },
+  {
+    id: "u1-17", unit: 1, course: "AB/BC", topic: "Intermediate Value Theorem", difficulty: "Easy",
+    stem: "$f$ is continuous with $f(2)=1$ and $f(5)=7$. The IVT guarantees $f(c)=4$ for some $c$ in which interval?",
+    choices: ["$(1,7)$", "$(2,5)$", "$(4,7)$", "$(0,2)$"],
+    answer: 1,
+    solution: "The IVT applies to the input interval $[2,5]$: since $4$ is between $f(2)=1$ and $f(5)=7$, some $c\\in(2,5)$ gives $f(c)=4$."
+  },
+  {
+    id: "u1-18", unit: 1, course: "AB/BC", topic: "Continuity & discontinuities", difficulty: "Easy",
+    stem: "What type of discontinuity does $f(x)=\\dfrac{x^2-4}{x-2}$ have at $x=2$?",
+    choices: ["Removable", "Jump", "Infinite", "None — it is continuous"],
+    answer: 0,
+    solution: "$f(x)=x+2$ for $x\\neq 2$, so $\\lim_{x\\to2}f(x)=4$ exists but $f(2)$ is undefined — a removable (hole) discontinuity."
+  },
+
+  /* ===================== UNIT 2: more ===================== */
+  {
+    id: "u2-13", unit: 2, course: "AB/BC", topic: "Definition of the derivative", difficulty: "Medium",
+    stem: "The limit $\\displaystyle\\lim_{h\\to 0}\\frac{(3+h)^2-9}{h}$ equals:",
+    choices: ["$3$", "$6$", "$9$", "$0$"],
+    answer: 1,
+    solution: "This is the definition of $f'(3)$ for $f(x)=x^2$. Since $f'(x)=2x$, the value is $6$."
+  },
+  {
+    id: "u2-14", unit: 2, course: "AB/BC", topic: "Power rule", difficulty: "Easy",
+    stem: "If $f(x)=2x^3-x$, find $f'(1)$.",
+    choices: ["$5$", "$6$", "$1$", "$2$"],
+    answer: 0,
+    solution: "$f'(x)=6x^2-1$, so $f'(1)=6-1=5$."
+  },
+  {
+    id: "u2-15", unit: 2, course: "AB/BC", topic: "Product & quotient rules", difficulty: "Hard",
+    stem: "Find $\\dfrac{d}{dx}\\left[\\dfrac{x^2}{x-1}\\right]$.",
+    choices: ["$\\dfrac{x^2-2x}{(x-1)^2}$", "$\\dfrac{2x}{x-1}$", "$\\dfrac{x^2+2x}{(x-1)^2}$", "$\\dfrac{2x}{(x-1)^2}$"],
+    answer: 0,
+    solution: "Quotient rule: $\\dfrac{2x(x-1)-x^2(1)}{(x-1)^2}=\\dfrac{x^2-2x}{(x-1)^2}$."
+  },
+  {
+    id: "u2-16", unit: 2, course: "AB/BC", topic: "Product & quotient rules", difficulty: "Medium",
+    stem: "Find $\\dfrac{d}{dx}\\left[x^2 e^{x}\\right]$.",
+    choices: ["$2xe^x$", "$e^x(2x+x^2)$", "$2xe^x+x^2$", "$x^2e^x$"],
+    answer: 1,
+    solution: "Product rule: $2x e^x + x^2 e^x = e^x(2x+x^2)$."
+  },
+  {
+    id: "u2-17", unit: 2, course: "AB/BC", topic: "Derivatives of e^x, ln x, sin, cos", difficulty: "Easy",
+    stem: "Find $\\dfrac{d}{dx}\\left[\\tan x\\right]$.",
+    choices: ["$\\sec^2 x$", "$\\sec x\\tan x$", "$-\\csc^2 x$", "$\\cot x$"],
+    answer: 0,
+    solution: "The derivative of $\\tan x$ is $\\sec^2 x$."
+  },
+  {
+    id: "u2-18", unit: 2, course: "AB/BC", topic: "Power rule", difficulty: "Easy",
+    stem: "What is the slope of the tangent line to $y=x^2$ at $x=3$?",
+    choices: ["$3$", "$6$", "$9$", "$2$"],
+    answer: 1,
+    solution: "The slope is $f'(3)$ where $f'(x)=2x$, so the slope is $6$."
+  },
+
+  /* ===================== UNIT 3: more ===================== */
+  {
+    id: "u3-13", unit: 3, course: "AB/BC", topic: "Implicit differentiation", difficulty: "Medium",
+    stem: "If $x^2+xy=6$, find $\\dfrac{dy}{dx}$.",
+    choices: ["$-\\dfrac{2x+y}{x}$", "$\\dfrac{2x+y}{x}$", "$-\\dfrac{y}{x}$", "$-2x-y$"],
+    answer: 0,
+    solution: "Differentiate: $2x+y+x\\,y'=0$, so $y'=-\\dfrac{2x+y}{x}$."
+  },
+  {
+    id: "u3-14", unit: 3, course: "AB/BC", topic: "Higher-order derivatives", difficulty: "Medium",
+    stem: "If $f(x)=e^{2x}$, find $f''(x)$.",
+    choices: ["$2e^{2x}$", "$4e^{2x}$", "$e^{2x}$", "$4e^{x}$"],
+    answer: 1,
+    solution: "$f'(x)=2e^{2x}$, $f''(x)=4e^{2x}$."
+  },
+  {
+    id: "u3-15", unit: 3, course: "AB/BC", topic: "Derivatives of inverse functions", difficulty: "Medium",
+    stem: "Find $\\dfrac{d}{dx}\\left[\\arcsin x\\right]$.",
+    choices: ["$\\dfrac{1}{1+x^2}$", "$\\dfrac{1}{\\sqrt{1-x^2}}$", "$\\dfrac{-1}{\\sqrt{1-x^2}}$", "$\\cos x$"],
+    answer: 1,
+    solution: "The derivative of the inverse sine is $\\dfrac{1}{\\sqrt{1-x^2}}$."
+  },
+  {
+    id: "u3-16", unit: 3, course: "AB/BC", topic: "Chain rule", difficulty: "Easy",
+    stem: "Find $\\dfrac{d}{dx}\\left[\\cos(5x)\\right]$.",
+    choices: ["$-\\sin(5x)$", "$-5\\sin(5x)$", "$5\\sin(5x)$", "$5\\cos(5x)$"],
+    answer: 1,
+    solution: "Chain rule: $-\\sin(5x)\\cdot 5=-5\\sin(5x)$."
+  },
+  {
+    id: "u3-17", unit: 3, course: "AB/BC", topic: "Implicit differentiation", difficulty: "Medium",
+    stem: "If $\\sin y=x$, find $\\dfrac{dy}{dx}$.",
+    choices: ["$\\cos y$", "$\\sec y$", "$\\csc y$", "$\\dfrac{1}{\\sin y}$"],
+    answer: 1,
+    solution: "Differentiate: $\\cos y\\,y'=1$, so $y'=\\dfrac{1}{\\cos y}=\\sec y$."
+  },
+  {
+    id: "u3-18", unit: 3, course: "AB/BC", topic: "Higher-order derivatives", difficulty: "Medium",
+    stem: "If $f(x)=x^5$, find $f'''(x)$.",
+    choices: ["$20x^3$", "$60x^2$", "$120x$", "$5x^4$"],
+    answer: 1,
+    solution: "$f'=5x^4$, $f''=20x^3$, $f'''=60x^2$."
+  },
+
+  /* ===================== UNIT 4: more ===================== */
+  {
+    id: "u4-13", unit: 4, course: "AB/BC", topic: "Linear approximation", difficulty: "Medium",
+    stem: "Use the linearization of $f(x)=\\ln x$ at $x=1$ to approximate $\\ln(1.1)$.",
+    choices: ["$0.1$", "$0.01$", "$1.1$", "$0.05$"],
+    answer: 0,
+    solution: "$f(1)=0$, $f'(x)=\\tfrac1x$ so $f'(1)=1$. $L(1.1)=0+1(0.1)=0.1$."
+  },
+  {
+    id: "u4-14", unit: 4, course: "AB/BC", topic: "Related rates", difficulty: "Hard",
+    stem: "A spherical balloon ($V=\\tfrac{4}{3}\\pi r^3$) has radius increasing at $3$ cm/s. How fast is the volume increasing when $r=2$ cm?",
+    choices: ["$12\\pi$ cm$^3$/s", "$36\\pi$ cm$^3$/s", "$48\\pi$ cm$^3$/s", "$16\\pi$ cm$^3$/s"],
+    answer: 2,
+    solution: "$\\dfrac{dV}{dt}=4\\pi r^2\\dfrac{dr}{dt}=4\\pi(4)(3)=48\\pi$ cm$^3$/s."
+  },
+  {
+    id: "u4-15", unit: 4, course: "AB/BC", topic: "Motion (position, velocity, acceleration)", difficulty: "Easy",
+    stem: "A particle has position $s(t)=t^2-4t+3$. When is its velocity zero?",
+    choices: ["$t=1$", "$t=2$", "$t=3$", "$t=4$"],
+    answer: 1,
+    solution: "$v(t)=2t-4=0\\Rightarrow t=2$."
+  },
+  {
+    id: "u4-16", unit: 4, course: "AB/BC", topic: "L'Hospital's Rule", difficulty: "Hard",
+    stem: "Evaluate $\\displaystyle\\lim_{x\\to 0}\\frac{\\sin 3x}{\\sin 2x}$.",
+    choices: ["$1$", "$\\dfrac{3}{2}$", "$\\dfrac{2}{3}$", "$0$"],
+    answer: 1,
+    solution: "This is $\\tfrac00$. By L'Hospital's Rule, $\\lim_{x\\to0}\\dfrac{3\\cos 3x}{2\\cos 2x}=\\dfrac{3}{2}$."
+  },
+  {
+    id: "u4-17", unit: 4, course: "AB/BC", topic: "Motion (position, velocity, acceleration)", difficulty: "Medium",
+    stem: "A particle has acceleration $a(t)=6t$ and velocity $v(0)=1$. Find $v(t)$.",
+    choices: ["$3t^2$", "$3t^2+1$", "$6t^2+1$", "$t^3+1$"],
+    answer: 1,
+    solution: "$v(t)=\\int 6t\\,dt=3t^2+C$. Since $v(0)=1$, $C=1$, so $v(t)=3t^2+1$."
+  },
+  {
+    id: "u4-18", unit: 4, course: "AB/BC", topic: "Linear approximation", difficulty: "Medium",
+    stem: "If $y=x^3$ and $x$ changes from $2$ to $2.1$, use differentials to estimate the change $dy$.",
+    choices: ["$1.2$", "$0.3$", "$12$", "$0.6$"],
+    answer: 0,
+    solution: "$dy=3x^2\\,dx=3(2)^2(0.1)=1.2$."
+  },
+
+  /* ===================== UNIT 5: more ===================== */
+  {
+    id: "u5-13", unit: 5, course: "AB/BC", topic: "Mean Value Theorem", difficulty: "Hard",
+    stem: "For $f(x)=x^3$ on $[0,3]$, find the value $c$ guaranteed by the Mean Value Theorem.",
+    choices: ["$c=\\sqrt{3}$", "$c=\\dfrac{3}{2}$", "$c=1$", "$c=3$"],
+    answer: 0,
+    solution: "$f'(c)=\\dfrac{27-0}{3}=9$. Since $f'(x)=3x^2$, $3c^2=9\\Rightarrow c=\\sqrt{3}$ (taking the value in $(0,3)$)."
+  },
+  {
+    id: "u5-14", unit: 5, course: "AB/BC", topic: "Optimization", difficulty: "Hard",
+    stem: "Two positive numbers have product $16$. What is the minimum possible value of their sum?",
+    choices: ["$8$", "$16$", "$4$", "$10$"],
+    answer: 0,
+    solution: "Minimize $S=x+\\dfrac{16}{x}$: $S'=1-\\dfrac{16}{x^2}=0\\Rightarrow x=4$. Then the sum is $4+4=8$."
+  },
+  {
+    id: "u5-15", unit: 5, course: "AB/BC", topic: "Increasing/decreasing & extrema", difficulty: "Medium",
+    stem: "If $f'(x)=x^2-4$, at which $x$ does $f$ have a local minimum?",
+    choices: ["$x=-2$", "$x=2$", "$x=0$", "$f$ has no local minimum"],
+    answer: 1,
+    solution: "$f'(x)=(x-2)(x+2)$. $f'$ changes from $-$ to $+$ at $x=2$, a local minimum."
+  },
+  {
+    id: "u5-16", unit: 5, course: "AB/BC", topic: "Concavity & inflection points", difficulty: "Medium",
+    stem: "At what $x$ does $f(x)=x^3-6x^2+5$ change concavity?",
+    choices: ["$x=0$", "$x=2$", "$x=4$", "$x=6$"],
+    answer: 1,
+    solution: "$f''(x)=6x-12=0$ at $x=2$, where it changes sign — an inflection point."
+  },
+  {
+    id: "u5-17", unit: 5, course: "AB/BC", topic: "Increasing/decreasing & extrema", difficulty: "Medium",
+    stem: "What is the absolute minimum value of $f(x)=x^2+2x$ on $[-3,1]$?",
+    choices: ["$-1$", "$0$", "$3$", "$-3$"],
+    answer: 0,
+    solution: "$f'(x)=2x+2=0\\Rightarrow x=-1$, $f(-1)=-1$. Endpoints: $f(-3)=3$, $f(1)=3$. The absolute minimum value is $-1$."
+  },
+  {
+    id: "u5-18", unit: 5, course: "AB/BC", topic: "Mean Value Theorem", difficulty: "Medium",
+    stem: "Does the Mean Value Theorem apply to $f(x)=|x|$ on $[-1,1]$?",
+    choices: [
+      "No — $f$ is not differentiable at $x=0$",
+      "Yes — and $c=0$",
+      "No — $f$ is not continuous",
+      "Yes — and $c=\\tfrac12$"
+    ],
+    answer: 0,
+    solution: "The MVT requires differentiability on the open interval. $f(x)=|x|$ has a corner at $x=0$, so it is not differentiable there and the MVT does not apply."
+  },
+
+  /* ===================== UNIT 6: more ===================== */
+  {
+    id: "u6-13", unit: 6, course: "AB/BC", topic: "Antiderivatives & indefinite integrals", difficulty: "Easy",
+    stem: "Find $\\displaystyle\\int (4x^3-2x)\\,dx$.",
+    choices: ["$x^4-x^2+C$", "$12x^2-2+C$", "$x^4-2x^2+C$", "$4x^4-x^2+C$"],
+    answer: 0,
+    solution: "$\\int 4x^3\\,dx=x^4$ and $\\int -2x\\,dx=-x^2$, so $x^4-x^2+C$."
+  },
+  {
+    id: "u6-14", unit: 6, course: "AB/BC", topic: "u-substitution", difficulty: "Medium",
+    stem: "Find $\\displaystyle\\int \\frac{x}{x^2+1}\\,dx$.",
+    choices: ["$\\ln(x^2+1)+C$", "$\\tfrac12\\ln(x^2+1)+C$", "$\\arctan x+C$", "$\\tfrac12(x^2+1)^2+C$"],
+    answer: 1,
+    solution: "Let $u=x^2+1$, $du=2x\\,dx$: $\\int\\frac{1}{2u}\\,du=\\tfrac12\\ln(x^2+1)+C$."
+  },
+  {
+    id: "u6-15", unit: 6, course: "AB/BC", topic: "Riemann sums & definite integrals", difficulty: "Easy",
+    stem: "Evaluate $\\displaystyle\\int_0^1 e^{x}\\,dx$.",
+    choices: ["$e$", "$e-1$", "$1-e$", "$1$"],
+    answer: 1,
+    solution: "$\\left[e^x\\right]_0^1=e^1-e^0=e-1$."
+  },
+  {
+    id: "u6-16", unit: 6, course: "AB/BC", topic: "Riemann sums & definite integrals", difficulty: "Medium",
+    stem: "Using a right Riemann sum with two equal subintervals, approximate $\\displaystyle\\int_0^2 x\\,dx$.",
+    choices: ["$1$", "$2$", "$3$", "$4$"],
+    answer: 2,
+    solution: "$\\Delta x=1$, right endpoints $x=1,2$: $1\\big(f(1)+f(2)\\big)=1+2=3$ (the exact value is $2$)."
+  },
+  {
+    id: "u6-17", unit: 6, course: "AB/BC", topic: "Fundamental Theorem of Calculus", difficulty: "Hard",
+    stem: "Find $\\dfrac{d}{dx}\\displaystyle\\int_x^{5} t^2\\,dt$.",
+    choices: ["$x^2$", "$-x^2$", "$25-x^2$", "$5^2$"],
+    answer: 1,
+    solution: "$\\int_x^5 t^2\\,dt=-\\int_5^x t^2\\,dt$, so its derivative is $-x^2$ (differentiating with respect to the lower limit flips the sign)."
+  },
+  {
+    id: "u6-18", unit: 6, course: "AB/BC", topic: "u-substitution", difficulty: "Medium",
+    stem: "Find $\\displaystyle\\int \\sin x\\cos x\\,dx$.",
+    choices: ["$\\tfrac12\\sin^2 x+C$", "$\\sin^2 x+C$", "$-\\cos^2 x+C$", "$\\tfrac12\\cos^2 x+C$"],
+    answer: 0,
+    solution: "Let $u=\\sin x$, $du=\\cos x\\,dx$: $\\int u\\,du=\\tfrac12\\sin^2 x+C$."
+  },
+
+  /* ===================== UNIT 7: more ===================== */
+  {
+    id: "u7-13", unit: 7, course: "AB/BC", topic: "Separation of variables", difficulty: "Medium",
+    stem: "Solve $\\dfrac{dy}{dx}=\\dfrac{y}{x}$ with $y(1)=2$ (for $x>0$).",
+    choices: ["$y=2x$", "$y=x+1$", "$y=2e^{x}$", "$y=x^2+1$"],
+    answer: 0,
+    solution: "Separate: $\\int\\frac{dy}{y}=\\int\\frac{dx}{x}\\Rightarrow\\ln y=\\ln x+C$, so $y=Cx$. With $y(1)=2$, $C=2$: $y=2x$."
+  },
+  {
+    id: "u7-14", unit: 7, course: "AB/BC", topic: "Exponential & logistic growth", difficulty: "Medium",
+    stem: "Solve $\\dfrac{dy}{dt}=-2y$ with $y(0)=5$.",
+    choices: ["$y=5e^{2t}$", "$y=5e^{-2t}$", "$y=5-2t$", "$y=-2e^{5t}$"],
+    answer: 1,
+    solution: "Exponential decay: $y=y(0)e^{kt}=5e^{-2t}$."
+  },
+  {
+    id: "u7-15", unit: 7, course: "AB/BC", topic: "Slope fields", difficulty: "Medium",
+    stem: "For which differential equation does the slope depend only on $y$ (so slopes are constant along any horizontal line)?",
+    choices: ["$\\dfrac{dy}{dx}=x$", "$\\dfrac{dy}{dx}=y$", "$\\dfrac{dy}{dx}=x+y$", "$\\dfrac{dy}{dx}=xy$"],
+    answer: 1,
+    solution: "$\\dfrac{dy}{dx}=y$ depends only on $y$, so for a fixed $y$ (a horizontal line) the slope is the same everywhere."
+  },
+  {
+    id: "u7-16", unit: 7, course: "AB/BC", topic: "Separation of variables", difficulty: "Easy",
+    stem: "What is the general solution of $\\dfrac{dy}{dx}=3y$?",
+    choices: ["$y=Ce^{3x}$", "$y=3x+C$", "$y=Ce^{x/3}$", "$y=e^{3x}+C$"],
+    answer: 0,
+    solution: "Separating gives $\\ln|y|=3x+C_1$, so $y=Ce^{3x}$."
+  },
+  {
+    id: "u7-17", unit: 7, course: "BC", topic: "Euler's method (BC)", difficulty: "Hard",
+    stem: "Given $\\dfrac{dy}{dx}=y$ and $y(0)=1$, use Euler's method with $\\Delta x=0.5$ (two steps) to approximate $y(1)$.",
+    choices: ["$2.0$", "$2.25$", "$2.5$", "$1.5$"],
+    answer: 1,
+    solution: "Step 1: $y(0.5)\\approx 1+0.5(1)=1.5$. Step 2: $y(1)\\approx 1.5+0.5(1.5)=2.25$."
+  },
+  {
+    id: "u7-18", unit: 7, course: "BC", topic: "Exponential & logistic growth", difficulty: "Medium",
+    stem: "For a logistic model $\\dfrac{dP}{dt}=kP\\left(1-\\dfrac{P}{L}\\right)$, at what population is the growth rate $\\dfrac{dP}{dt}$ greatest?",
+    choices: ["$P=0$", "$P=\\dfrac{L}{2}$", "$P=L$", "$P=2L$"],
+    answer: 1,
+    solution: "The parabola $kP(1-P/L)$ in $P$ is maximized at $P=\\dfrac{L}{2}$ — the population grows fastest at half the carrying capacity."
+  },
+
+  /* ===================== UNIT 8: more ===================== */
+  {
+    id: "u8-13", unit: 8, course: "AB/BC", topic: "Average value of a function", difficulty: "Hard",
+    stem: "Find the average value of $f(x)=\\sin x$ on $[0,\\pi]$.",
+    choices: ["$\\dfrac{2}{\\pi}$", "$\\dfrac{1}{\\pi}$", "$0$", "$\\dfrac{\\pi}{2}$"],
+    answer: 0,
+    solution: "Average $=\\dfrac{1}{\\pi}\\int_0^{\\pi}\\sin x\\,dx=\\dfrac{1}{\\pi}\\big[-\\cos x\\big]_0^{\\pi}=\\dfrac{1}{\\pi}(2)=\\dfrac{2}{\\pi}$."
+  },
+  {
+    id: "u8-14", unit: 8, course: "AB/BC", topic: "Area between curves", difficulty: "Medium",
+    stem: "Find the area of the region between $y=2x$ and $y=x^2$.",
+    choices: ["$\\dfrac{4}{3}$", "$\\dfrac{2}{3}$", "$2$", "$\\dfrac{8}{3}$"],
+    answer: 0,
+    solution: "They meet at $x=0,2$, with $2x\\ge x^2$ there. Area $=\\int_0^2 (2x-x^2)\\,dx=\\big[x^2-\\tfrac{x^3}{3}\\big]_0^2=4-\\tfrac83=\\tfrac43$."
+  },
+  {
+    id: "u8-15", unit: 8, course: "AB/BC", topic: "Volumes of revolution", difficulty: "Medium",
+    stem: "The region bounded by $y=2$, the $x$-axis, $x=0$ and $x=3$ is revolved about the $x$-axis. Find the volume.",
+    choices: ["$6\\pi$", "$12\\pi$", "$9\\pi$", "$4\\pi$"],
+    answer: 1,
+    solution: "A cylinder of radius $2$, length $3$: $V=\\pi\\int_0^3 2^2\\,dx=\\pi(4)(3)=12\\pi$."
+  },
+  {
+    id: "u8-16", unit: 8, course: "AB/BC", topic: "Accumulation & net change", difficulty: "Medium",
+    stem: "Water enters a tank at rate $r(t)=6-2t$ liters/min. What is the net change in volume over the first $3$ minutes?",
+    choices: ["$6$ L", "$9$ L", "$12$ L", "$18$ L"],
+    answer: 1,
+    solution: "Net change $=\\int_0^3 (6-2t)\\,dt=\\big[6t-t^2\\big]_0^3=18-9=9$ liters."
+  },
+  {
+    id: "u8-17", unit: 8, course: "AB/BC", topic: "Volumes of revolution", difficulty: "Medium",
+    stem: "The region under $y=x$ from $x=0$ to $x=2$ is revolved about the $x$-axis. Find the volume.",
+    choices: ["$\\dfrac{8\\pi}{3}$", "$4\\pi$", "$8\\pi$", "$\\dfrac{4\\pi}{3}$"],
+    answer: 0,
+    solution: "Disk method: $V=\\pi\\int_0^2 x^2\\,dx=\\pi\\big[\\tfrac{x^3}{3}\\big]_0^2=\\dfrac{8\\pi}{3}$."
+  },
+  {
+    id: "u8-18", unit: 8, course: "AB/BC", topic: "Area between curves", difficulty: "Medium",
+    stem: "Find the area of the region between $y=x$ and $y=x^3$ from $x=0$ to $x=1$.",
+    choices: ["$\\dfrac{1}{4}$", "$\\dfrac{1}{2}$", "$\\dfrac{1}{12}$", "$\\dfrac{1}{3}$"],
+    answer: 0,
+    solution: "On $[0,1]$, $x\\ge x^3$. Area $=\\int_0^1 (x-x^3)\\,dx=\\tfrac12-\\tfrac14=\\tfrac14$."
+  },
+
+  /* ===================== UNIT 9 (BC): more ===================== */
+  {
+    id: "u9-13", unit: 9, course: "BC", topic: "Polar derivatives", difficulty: "Medium",
+    stem: "Convert the rectangular point $(0,-3)$ to polar coordinates with $r>0$.",
+    choices: ["$\\left(3,\\dfrac{3\\pi}{2}\\right)$", "$\\left(3,\\dfrac{\\pi}{2}\\right)$", "$\\left(-3,\\dfrac{\\pi}{2}\\right)$", "$(3,\\pi)$"],
+    answer: 0,
+    solution: "$r=\\sqrt{0^2+(-3)^2}=3$, and the point is on the negative $y$-axis, so $\\theta=\\dfrac{3\\pi}{2}$."
+  },
+  {
+    id: "u9-14", unit: 9, course: "BC", topic: "Area of polar regions", difficulty: "Medium",
+    stem: "Find the area enclosed by the polar curve $r=3$.",
+    choices: ["$3\\pi$", "$6\\pi$", "$9\\pi$", "$\\dfrac{9\\pi}{2}$"],
+    answer: 2,
+    solution: "$A=\\tfrac12\\int_0^{2\\pi}3^2\\,d\\theta=\\tfrac12(9)(2\\pi)=9\\pi$ (matches $\\pi r^2$)."
+  },
+  {
+    id: "u9-15", unit: 9, course: "BC", topic: "Parametric derivatives & arc length", difficulty: "Medium",
+    stem: "For $x=e^{t}$, $y=e^{2t}$, find $\\dfrac{dy}{dx}$.",
+    choices: ["$2e^{t}$", "$e^{t}$", "$2e^{2t}$", "$\\dfrac{1}{2}e^{t}$"],
+    answer: 0,
+    solution: "$\\dfrac{dy}{dx}=\\dfrac{2e^{2t}}{e^{t}}=2e^{t}$."
+  },
+  {
+    id: "u9-16", unit: 9, course: "BC", topic: "Vector-valued motion & speed", difficulty: "Medium",
+    stem: "A particle has position $\\langle \\sin t,\\,\\cos t\\rangle$. What is its speed at any time $t$?",
+    choices: ["$0$", "$1$", "$2$", "$\\sin t+\\cos t$"],
+    answer: 1,
+    solution: "Velocity $=\\langle \\cos t,\\,-\\sin t\\rangle$, speed $=\\sqrt{\\cos^2 t+\\sin^2 t}=1$."
+  },
+  {
+    id: "u9-17", unit: 9, course: "BC", topic: "Polar derivatives", difficulty: "Medium",
+    stem: "For the polar curve $r=1+\\cos\\theta$, what is the rectangular point at $\\theta=0$?",
+    choices: ["$(2,0)$", "$(1,0)$", "$(0,2)$", "$(0,0)$"],
+    answer: 0,
+    solution: "At $\\theta=0$, $r=1+\\cos 0=2$, so $x=2\\cos 0=2$, $y=2\\sin 0=0$: the point $(2,0)$."
+  },
+  {
+    id: "u9-18", unit: 9, course: "BC", topic: "Parametric derivatives & arc length", difficulty: "Medium",
+    stem: "Find the arc length of $x=\\cos t$, $y=\\sin t$ for $0\\le t\\le \\pi$.",
+    choices: ["$\\pi$", "$2\\pi$", "$2$", "$\\dfrac{\\pi}{2}$"],
+    answer: 0,
+    solution: "$\\sqrt{(dx/dt)^2+(dy/dt)^2}=\\sqrt{\\sin^2 t+\\cos^2 t}=1$, so length $=\\int_0^{\\pi}1\\,dt=\\pi$ (half the unit circle)."
+  },
+
+  /* ===================== UNIT 10 (BC): more ===================== */
+  {
+    id: "u10-13", unit: 10, course: "BC", topic: "Geometric & p-series", difficulty: "Easy",
+    stem: "Does $\\displaystyle\\sum_{n=1}^{\\infty}\\frac{1}{n^3}$ converge or diverge?",
+    choices: ["Converges", "Diverges", "Converges to $0$", "Cannot be determined"],
+    answer: 0,
+    solution: "It is a p-series with $p=3>1$, so it converges."
+  },
+  {
+    id: "u10-14", unit: 10, course: "BC", topic: "Taylor & Maclaurin series", difficulty: "Medium",
+    stem: "The Maclaurin series for $\\cos x$ begins with which terms?",
+    choices: [
+      "$x-\\dfrac{x^3}{3!}+\\cdots$",
+      "$1-\\dfrac{x^2}{2!}+\\dfrac{x^4}{4!}-\\cdots$",
+      "$1+\\dfrac{x^2}{2!}+\\dfrac{x^4}{4!}+\\cdots$",
+      "$1+x+\\dfrac{x^2}{2!}+\\cdots$"
+    ],
+    answer: 1,
+    solution: "$\\cos x=\\sum_{n=0}^{\\infty}\\dfrac{(-1)^n x^{2n}}{(2n)!}=1-\\dfrac{x^2}{2!}+\\dfrac{x^4}{4!}-\\cdots$ (even powers, alternating)."
+  },
+  {
+    id: "u10-15", unit: 10, course: "BC", topic: "Interval of convergence", difficulty: "Hard",
+    stem: "What is the radius of convergence of $\\displaystyle\\sum_{n=0}^{\\infty} n!\\,x^n$?",
+    choices: ["$\\infty$", "$1$", "$0$", "$e$"],
+    answer: 2,
+    solution: "Ratio test: $\\left|\\dfrac{(n+1)!\\,x^{n+1}}{n!\\,x^n}\\right|=(n+1)|x|\\to\\infty$ unless $x=0$. The series converges only at $x=0$, so the radius is $0$."
+  },
+  {
+    id: "u10-16", unit: 10, course: "BC", topic: "Convergence tests", difficulty: "Medium",
+    stem: "Which test is most appropriate for determining the convergence of $\\displaystyle\\sum_{n=1}^{\\infty}\\frac{(-1)^n}{\\sqrt{n}}$?",
+    choices: ["Alternating Series Test", "Geometric Series Test", "p-series Test", "Ratio Test"],
+    answer: 0,
+    solution: "The terms alternate in sign and $\\dfrac{1}{\\sqrt{n}}$ decreases to $0$, so the Alternating Series Test applies (and shows convergence)."
+  },
+  {
+    id: "u10-17", unit: 10, course: "BC", topic: "Taylor & Maclaurin series", difficulty: "Medium",
+    stem: "In the Maclaurin series for $e^{x}$, what is the coefficient of $x^2$?",
+    choices: ["$1$", "$\\dfrac{1}{2}$", "$2$", "$\\dfrac{1}{6}$"],
+    answer: 1,
+    solution: "$e^x=\\sum\\dfrac{x^n}{n!}$, so the $x^2$ coefficient is $\\dfrac{1}{2!}=\\dfrac{1}{2}$."
+  },
+  {
+    id: "u10-18", unit: 10, course: "BC", topic: "Interval of convergence", difficulty: "Medium",
+    stem: "For which values of $x$ does $\\displaystyle\\sum_{n=0}^{\\infty}\\frac{x^n}{n!}$ converge?",
+    choices: ["Only $x=0$", "$|x|<1$", "$-1\\le x\\le 1$", "All real $x$"],
+    answer: 3,
+    solution: "This is the series for $e^x$. The ratio test gives $\\dfrac{|x|}{n+1}\\to 0<1$ for every $x$, so it converges for all real $x$."
   }
 ];
