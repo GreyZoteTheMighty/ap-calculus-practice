@@ -52,9 +52,7 @@ Or just open `index.html` in a browser (MathJax loads from a CDN, so you need in
 3. Under **Build and deployment**, set **Source = Deploy from a branch**,
    **Branch = `main`**, **Folder = `/ (root)`**, then **Save**.
 4. Wait ~1 minute. Your site is live at `https://<username>.github.io/<repo>/`.
-
-(The included `.github/workflows/pages.yml` also deploys automatically on every push once
-Pages is set to the **GitHub Actions** source instead.)
+   Every push to `main` thereafter redeploys automatically.
 
 ## Contributing problems
 
