@@ -28,6 +28,19 @@
   <main class="wrap">
     <!-- ============ SELECTION SCREEN ============ -->
     <section id="selection-screen">
+      <section id="progress-panel" class="progress-panel hidden">
+        <div class="pp-head">
+          <h2 class="pp-title">Your progress</h2>
+          <div class="pp-actions">
+            <button id="progress-toggle" class="btn btn-ghost">Show topic breakdown</button>
+            <button id="reset-progress" class="btn btn-ghost">Reset</button>
+          </div>
+        </div>
+        <div class="pp-stats" id="pp-stats"></div>
+        <div class="pp-details hidden" id="pp-details"></div>
+        <p class="pp-note">Saved on this device and kept across visits.</p>
+      </section>
+
       <div class="controls">
         <div class="control">
           <label for="type-filter">Question type</label>
@@ -53,12 +66,8 @@
           </select>
         </div>
         <div class="control">
-          <label for="count-filter">Problems per set</label>
-          <select id="count-filter">
-            <option value="5">5</option>
-            <option value="10" selected>10</option>
-            <option value="999">All available</option>
-          </select>
+          <label for="count-filter">Number of questions</label>
+          <input id="count-filter" type="number" min="1" max="50" value="10" inputmode="numeric" />
         </div>
         <div class="control">
           <label for="timed-toggle">Timed mode</label>
@@ -135,6 +144,7 @@
   <script src="data/questions.js"></script>
   <script src="data/questions-extra.js"></script>
   <script src="data/questions-extra2.js"></script>
+  <script src="data/questions-extra3.js"></script>
   <script src="data/frq.js"></script>
   <script src="data/frq-extra.js"></script>
   <script src="app.js"></script>

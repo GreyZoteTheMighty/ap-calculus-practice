@@ -247,6 +247,33 @@ select:focus { outline: 2px solid var(--brand); outline-offset: 1px; }
 }
 .selection-summary { font-size: 0.9rem; color: var(--ink); font-weight: 600; }
 
+/* ---------- number input (matches selects) ---------- */
+.control input[type="number"] {
+  padding: 9px 10px; border: 1px solid var(--line); border-radius: 9px;
+  background: #fff; font-size: 0.95rem; color: var(--ink); width: 100%; font-family: inherit;
+}
+.control input[type="number"]:focus { outline: 2px solid var(--brand); outline-offset: 1px; }
+
+/* ---------- progress tracker ---------- */
+.progress-panel {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 16px 18px; margin-bottom: 22px;
+}
+.pp-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.pp-title { font-size: 1.05rem; margin: 0; }
+.pp-actions { display: flex; gap: 4px; }
+.pp-stats { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
+.pp-stat { flex: 1 1 120px; background: #f8fafc; border: 1px solid var(--line); border-radius: 11px; padding: 12px 14px; text-align: center; }
+.pp-stat-val { font-size: 1.5rem; font-weight: 800; color: var(--brand); }
+.pp-stat-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; margin-top: 2px; }
+.pp-details { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; max-height: 280px; overflow-y: auto; }
+.pp-row { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; }
+.pp-row-name { flex: 1 1 42%; min-width: 0; }
+.pp-bar { flex: 1 1 28%; height: 8px; background: #eef2ff; border-radius: 999px; overflow: hidden; }
+.pp-bar-fill { display: block; height: 100%; background: var(--brand); border-radius: 999px; }
+.pp-row-val { flex: none; color: var(--muted); font-variant-numeric: tabular-nums; }
+.pp-note { font-size: 0.76rem; color: var(--muted); margin: 12px 0 0; }
+
 @media (max-width: 560px) {
   .site-header h1 { font-size: 1.5rem; }
   .q-stem { font-size: 1.04rem; }

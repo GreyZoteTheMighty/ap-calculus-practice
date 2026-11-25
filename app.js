@@ -50,6 +50,92 @@
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
+  // ---------- progress tracker (localStorage; persists across sessions) ----------
+  var STATS_KEY = "apcalc_progress_v1";
+  function defaultStats() {
+    return { setsCompleted: 0, mcAnswered: 0, mcCorrect: 0, frqEarned: 0, frqPossible: 0, byTopic: {}, firstSeen: 0, lastSeen: 0 };
+  }
+  function loadStats() {
+    try {
+      var s = JSON.parse(localStorage.getItem(STATS_KEY));
+      if (s && typeof s === "object") {
+        var d = defaultStats();
+        for (var k in d) if (!(k in s)) s[k] = d[k];
+        if (!s.byTopic || typeof s.byTopic !== "object") s.byTopic = {};
+        return s;
+      }
+    } catch (e) {}
+    return defaultStats();
+  }
+  var stats = loadStats();
+  function saveStats() { try { localStorage.setItem(STATS_KEY, JSON.stringify(stats)); } catch (e) {} }
+
+  function recordSet() {
+    var any = false;
+    for (var i = 0; i < state.quiz.length; i++) {
+      var r = state.resultByIndex[i];
+      if (!r) continue;
+      any = true;
+      var item = state.quiz[i];
+      if (state.type === "frq") {
+        stats.frqEarned += r.earned; stats.frqPossible += r.max;
+      } else {
+        stats.mcAnswered += 1; stats.mcCorrect += r.earned;
+        var key = item.unit + "||" + item.topic;
+        if (!stats.byTopic[key]) stats.byTopic[key] = { a: 0, c: 0 };
+        stats.byTopic[key].a += 1; stats.byTopic[key].c += r.earned;
+      }
+    }
+    if (!any) return;
+    stats.setsCompleted += 1;
+    stats.lastSeen = Date.now();
+    if (!stats.firstSeen) stats.firstSeen = Date.now();
+    saveStats();
+    renderProgress();
+  }
+  function resetProgress() {
+    if (!window.confirm("Reset all saved progress on this device? This cannot be undone.")) return;
+    stats = defaultStats();
+    saveStats();
+    renderProgress();
+  }
+  function statCard(label, val) {
+    return '<div class="pp-stat"><div class="pp-stat-val">' + val + '</div><div class="pp-stat-label">' + label + "</div></div>";
+  }
+  function renderProgress() {
+    var panel = $("progress-panel");
+    if (!stats.mcAnswered && !stats.frqPossible && !stats.setsCompleted) { panel.classList.add("hidden"); return; }
+    panel.classList.remove("hidden");
+    var acc = stats.mcAnswered ? Math.round((stats.mcCorrect / stats.mcAnswered) * 100) : 0;
+    var cards =
+      statCard("Sets completed", stats.setsCompleted) +
+      statCard("MC answered", stats.mcAnswered) +
+      statCard("MC accuracy", stats.mcAnswered ? acc + "%" : "—");
+    if (stats.frqPossible) cards += statCard("FRQ points", stats.frqEarned + " / " + stats.frqPossible);
+    $("pp-stats").innerHTML = cards;
+
+    var rows = Object.keys(stats.byTopic).map(function (k) {
+      var t = stats.byTopic[k], parts = k.split("||");
+      return { unit: parseInt(parts[0], 10), topic: parts.slice(1).join("||"), a: t.a, c: t.c, pct: t.a ? Math.round((t.c / t.a) * 100) : 0 };
+    }).sort(function (x, y) { return x.pct - y.pct || y.a - x.a; });
+    $("pp-details").innerHTML = rows.length
+      ? rows.map(function (r) {
+          return '<div class="pp-row"><span class="pp-row-name">Unit ' + r.unit + " · " + r.topic + '</span>' +
+            '<span class="pp-bar"><span class="pp-bar-fill" style="width:' + r.pct + '%"></span></span>' +
+            '<span class="pp-row-val">' + r.c + "/" + r.a + " (" + r.pct + "%)</span></div>";
+        }).join("")
+      : '<p class="muted">Answer some multiple-choice questions to see per-topic accuracy.</p>';
+  }
+
+  function uniqueByStem(arr) {
+    var seen = {}, out = [];
+    arr.forEach(function (q) {
+      var key = q.stem || q.id;
+      if (!seen[key]) { seen[key] = true; out.push(q); }
+    });
+    return out;
+  }
+
   // ---------- timer ----------
   function startTimer(totalSeconds) {
     stopTimer();
@@ -85,7 +171,7 @@
     return {
       course: $("course-filter").value,
       difficulty: $("difficulty-filter").value,
-      count: parseInt($("count-filter").value, 10)
+      count: Math.max(1, parseInt($("count-filter").value, 10) || 10)
     };
   }
   function courseMatches(item, course) {
@@ -225,7 +311,7 @@
   function clearSelection() { selected = {}; renderUnits(); }
 
   function selectedPool() {
-    return filterItems(function (q) { return selected[topicKey(q.unit, q.topic)]; });
+    return uniqueByStem(filterItems(function (q) { return selected[topicKey(q.unit, q.topic)]; }));
   }
   function selectedUnitCount() {
     var us = {};
@@ -238,6 +324,7 @@
     if (!keys.length) { bar.classList.add("hidden"); return; }
     bar.classList.remove("hidden");
     var pool = selectedPool();
+    $("count-filter").max = Math.max(1, pool.length);
     var noun = state.type === "frq" ? "FRQ" : "question";
     $("selection-summary").textContent =
       keys.length + " topic" + (keys.length === 1 ? "" : "s") +
@@ -400,6 +487,7 @@
 
   function showResults(timeUp) {
     stopTimer();
+    recordSet();
     var t = tally();
     var pct = t.max ? Math.round((t.earned / t.max) * 100) : 0;
     var unit = state.type === "frq" ? " pts" : "";
@@ -426,6 +514,14 @@
   // ---------- wiring ----------
   function init() {
     renderUnits();
+    renderProgress();
+
+    $("progress-toggle").addEventListener("click", function () {
+      var d = $("pp-details");
+      var hidden = d.classList.toggle("hidden");
+      $("progress-toggle").textContent = hidden ? "Show topic breakdown" : "Hide topic breakdown";
+    });
+    $("reset-progress").addEventListener("click", resetProgress);
 
     $("type-filter").addEventListener("change", function () {
       state.type = $("type-filter").value;
