@@ -60,49 +60,12 @@ Or just open `index.html` in a browser (MathJax loads from a CDN, so you need in
 4. Wait ~1 minute. Your site is live at `https://<username>.github.io/<repo>/`.
    Every push to `main` thereafter redeploys automatically.
 
-## Contributing problems
+## Contributing
 
-The question bank lives in [`data/questions.js`](data/questions.js). Add an object to the
-`AP_CALC_QUESTIONS` array following this schema:
-
-```js
-{
-  id: "u1-7",                 // unique id, convention: u<unit>-<n>
-  unit: 1,                    // 1–10
-  course: "AB/BC",            // "AB/BC" or "BC"
-  topic: "Algebraic limit techniques", // should match a topic in data/units.js
-  difficulty: "Medium",       // "Easy" | "Medium" | "Hard"
-  stem: "Evaluate $\\lim_{x\\to 0}\\frac{\\sin x}{x}$.", // LaTeX in $...$
-  choices: ["$0$", "$1$", "$\\infty$", "DNE"], // 2–5 options
-  answer: 1,                  // 0-based index of the correct choice
-  solution: "The standard limit $\\lim_{x\\to0}\\frac{\\sin x}{x}=1$."
-}
-```
-
-Guidelines:
-- Exactly **one** correct choice; make distractors plausible (common mistakes).
-- Write all math in LaTeX between `$...$` (inline) or `$$...$$` (display).
-- Keep solutions short but show the method.
-- Topic strings should match an entry in [`data/units.js`](data/units.js) so it appears in the
-  topic drill-down (new topics can be added there).
-
-**Free-response questions** live in [`data/frq.js`](data/frq.js) (the `AP_CALC_FRQ` array). Each
-FRQ has a `context`, a `calculator` flag, and a list of `parts`, where every part carries its
-own `prompt`, `points`, and `solution`:
-
-```js
-{
-  id: "frq-u8-3", unit: 8, course: "AB/BC", topic: "Area between curves",
-  difficulty: "Medium", calculator: false,
-  context: "Let $R$ be the region bounded by $y=x$ and $y=x^2$.",
-  parts: [
-    { label: "a", points: 2, prompt: "Find the area of $R$.", solution: "..." },
-    { label: "b", points: 2, prompt: "Find the volume ...",    solution: "..." }
-  ]
-}
-```
-
-Open a pull request with your additions — contributions of all difficulty levels are welcome.
+**This project is not accepting outside contributions or problem submissions at this time.**
+Please don't open pull requests adding questions — they won't be merged for now. Issues are
+also closed while the project is still taking shape. Thanks for understanding; this may open
+up later.
 
 ## License
 

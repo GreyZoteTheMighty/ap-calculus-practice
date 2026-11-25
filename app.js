@@ -369,16 +369,6 @@
       b.addEventListener("click", function () { goTo(b.getAttribute("data-back") + "-screen"); });
     });
 
-    var link = $("repo-link");
-    var host = location.hostname;
-    if (host.endsWith("github.io")) {
-      var user = host.split(".")[0];
-      var repo = location.pathname.split("/").filter(Boolean)[0] || "";
-      link.href = "https://github.com/" + user + (repo ? "/" + repo : "");
-    } else {
-      link.href = "https://github.com/";
-    }
-
     typeset(document.body);
   }
 
