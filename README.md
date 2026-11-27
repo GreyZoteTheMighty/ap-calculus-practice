@@ -16,13 +16,13 @@ phone, or bookmark it, for one-tap access.)
 ## Features
 
 - **Choose your scope** — practice a whole unit, a single topic, or a mixed set across everything.
-- **All 10 CED units** — AB (Units 1–8) and BC (Units 1–10).
+- **All 10 Collegeboard units** — AB (Units 1–8) and BC (Units 1–10).
 - **Two question types** — multiple choice (380 problems) and **free response** (50 multi-part FRQs with a scoring rubric you self-score, as on the real exam).
 - **Timed mode** — an optional AP-pacing countdown (≈2 min per multiple-choice question, ≈6 min per FRQ); the set auto-submits when time runs out.
 - **Filters** — by course (AB / BC), by difficulty (Easy / Medium / Hard), and set length.
-- **Worked solutions** — every problem explains the method, not just the answer.
+- **Worked solutions** — every problem explains the answer.
 - **Real math rendering** — LaTeX via [MathJax](https://www.mathjax.org/).
-- **Zero dependencies / no build step** — plain HTML, CSS, and JavaScript.
+- **Codebase** — HTML, CSS, and JavaScript.
 
 ## Units covered
 
@@ -39,33 +39,6 @@ phone, or bookmark it, for one-tap access.)
 | 9 | Parametric, Polar & Vector-Valued Functions | BC |
 | 10 | Infinite Sequences and Series | BC |
 
-## Run it locally
-
-No tooling required — it's a static site. Any static server works:
-
-```bash
-# Python 3
-python -m http.server 8000
-# then open http://localhost:8000
-```
-
-Or just open `index.html` in a browser (MathJax loads from a CDN, so you need internet).
-
-## Deploy for free on GitHub Pages
-
-1. Push this repo to GitHub (public).
-2. Go to **Settings → Pages**.
-3. Under **Build and deployment**, set **Source = Deploy from a branch**,
-   **Branch = `main`**, **Folder = `/ (root)`**, then **Save**.
-4. Wait ~1 minute. Your site is live at `https://<username>.github.io/<repo>/`.
-   Every push to `main` thereafter redeploys automatically.
-
-## Contributing
-
-**This project is not accepting outside contributions or problem submissions at this time.**
-Please don't open pull requests adding questions — they won't be merged for now. Issues are
-also closed while the project is still taking shape. Thanks for understanding; this may open
-up later.
 
 ## License
 
