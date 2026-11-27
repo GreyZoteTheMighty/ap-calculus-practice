@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AP Calculus Practice</title>
   <meta name="description" content="Free, open AP Calculus AB/BC practice problems by unit and topic, with worked solutions." />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>∫</text></svg>" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2315171C'/><text x='50' y='78' font-size='82' font-family='Georgia,serif' font-style='italic' text-anchor='middle' fill='%23FFD23F'>&#8747;</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&family=STIX+Two+Text:ital@0;1&display=swap">
   <link rel="stylesheet" href="styles.css" />
-  <!-- MathJax for rendering LaTeX -->
   <script>
     window.MathJax = {
       tex: { inlineMath: [['$', '$']], displayMath: [['$$', '$$']] },
@@ -19,126 +21,141 @@
 </head>
 <body>
   <header class="site-header">
-    <div class="wrap">
-      <h1>∫ AP Calculus Practice</h1>
-      <p class="tagline">Pick a unit or topic. Get AP-style problems with worked solutions. Free and open to everyone.</p>
+    <div class="wrap header-inner">
+      <a class="brand" href="#" id="brand-home" data-back="selection">
+        <span class="brand-mark" aria-hidden="true">&#8747;</span>
+        <span class="brand-name">AP Calculus Practice</span>
+      </a>
     </div>
   </header>
 
-  <main class="wrap">
+  <main>
     <!-- ============ SELECTION SCREEN ============ -->
     <section id="selection-screen">
-      <section id="progress-panel" class="progress-panel hidden">
-        <div class="pp-head">
-          <h2 class="pp-title">Your progress</h2>
-          <div class="pp-actions">
-            <button id="progress-toggle" class="btn btn-ghost">Show topic breakdown</button>
-            <button id="reset-progress" class="btn btn-ghost">Reset</button>
+      <div class="hero">
+        <div class="wrap">
+          <p class="eyebrow">AP&reg; Calculus AB &amp; BC &middot; 10 units &middot; 41 topics</p>
+          <h1 class="hero-title">Find your weak spots. Drill exactly those.</h1>
+          <p class="hero-sub">2,076 multiple-choice and 50 free-response questions, each with a worked solution. Pick any mix of units and topics below. Free, no account, nothing to install.</p>
+        </div>
+      </div>
+
+      <div class="wrap home-grid">
+        <section class="units-col" aria-labelledby="units-h">
+          <div class="units-head">
+            <div>
+              <h2 class="col-title" id="units-h">1. Choose units &amp; topics</h2>
+              <p class="col-sub">Tap a unit to take all of it, or open it to pick single topics.</p>
+            </div>
+            <div class="bulk">
+              <button type="button" id="select-all" class="link-btn">Select all</button>
+              <button type="button" id="clear-selection" class="link-btn muted">Clear</button>
+            </div>
           </div>
-        </div>
-        <div class="pp-stats" id="pp-stats"></div>
-        <div class="pp-details hidden" id="pp-details"></div>
-        <p class="pp-note">Saved on this device and kept across visits.</p>
-      </section>
+          <div id="unit-grid"><!-- grouped unit lists injected here --></div>
+        </section>
 
-      <div class="controls">
-        <div class="control">
-          <label for="type-filter">Question type</label>
-          <select id="type-filter">
-            <option value="mc">Multiple choice</option>
-            <option value="frq">Free response</option>
-          </select>
-        </div>
-        <div class="control">
-          <label for="course-filter">Course</label>
-          <select id="course-filter">
-            <option value="BC" selected>BC (all units)</option>
-            <option value="AB">AB (Units 1–8)</option>
-          </select>
-        </div>
-        <div class="control">
-          <label for="difficulty-filter">Difficulty</label>
-          <select id="difficulty-filter">
-            <option value="all">Any difficulty</option>
-            <option value="Easy">Easy</option>
-            <option value="Medium">Medium</option>
-            <option value="Hard">Hard</option>
-          </select>
-        </div>
-        <div class="control">
-          <label for="count-filter">Number of questions</label>
-          <input id="count-filter" type="number" min="1" max="50" value="10" inputmode="numeric" />
-        </div>
-        <div class="control">
-          <label for="timed-toggle">Timed mode</label>
-          <select id="timed-toggle">
-            <option value="off">Off</option>
-            <option value="on">On (AP pacing)</option>
-          </select>
-        </div>
+        <aside class="setup-col">
+          <section class="card setup-card" aria-labelledby="setup-h">
+            <h2 class="col-title" id="setup-h">2. Set it up</h2>
+
+            <div class="field">
+              <div class="field-label">Question type</div>
+              <div class="seg" data-group="type">
+                <button type="button" class="seg-btn is-active" data-val="mc" aria-pressed="true">Multiple choice</button>
+                <button type="button" class="seg-btn" data-val="frq" aria-pressed="false">Free response</button>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <div class="field-label">Course</div>
+                <div class="seg" data-group="course">
+                  <button type="button" class="seg-btn" data-val="AB" aria-pressed="false">AB</button>
+                  <button type="button" class="seg-btn is-active" data-val="BC" aria-pressed="true">BC</button>
+                </div>
+              </div>
+              <div class="field">
+                <label class="field-label" for="count-filter">Questions</label>
+                <div class="stepper">
+                  <button type="button" id="count-dec" aria-label="Fewer questions">&minus;</button>
+                  <input id="count-filter" type="number" min="1" max="50" value="10" inputmode="numeric" />
+                  <button type="button" id="count-inc" aria-label="More questions">+</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="field-label">Difficulty</div>
+              <div class="seg seg-4" data-group="difficulty">
+                <button type="button" class="seg-btn is-active" data-val="all" aria-pressed="true">Any</button>
+                <button type="button" class="seg-btn" data-val="Easy" aria-pressed="false">Easy</button>
+                <button type="button" class="seg-btn" data-val="Medium" aria-pressed="false">Medium</button>
+                <button type="button" class="seg-btn" data-val="Hard" aria-pressed="false">Hard</button>
+              </div>
+            </div>
+
+            <label class="switch-row">
+              <input type="checkbox" id="timed-toggle" role="switch" />
+              <span class="switch-knob" aria-hidden="true"></span>
+              <span class="switch-text">
+                <span class="switch-title">Timed mode</span>
+                <span class="switch-sub">AP-pacing countdown; auto-submits at zero</span>
+              </span>
+            </label>
+
+            <div class="setup-foot">
+              <div class="setup-summary">
+                <span id="selection-summary" class="setup-scope">No topics selected</span>
+                <span id="selection-available" class="mono muted"></span>
+              </div>
+              <button type="button" id="confirm-start" class="btn-primary" disabled>Start practice</button>
+            </div>
+          </section>
+
+          <section class="card progress-card hidden" id="progress-panel" aria-labelledby="prog-h">
+            <div class="pp-head">
+              <h2 class="col-title" id="prog-h">Your progress</h2>
+              <button type="button" id="reset-progress" class="link-btn muted">Reset</button>
+            </div>
+            <div class="pp-stats" id="pp-stats"></div>
+            <div class="pp-weak">
+              <h3 class="pp-weak-title">Weakest topics first</h3>
+              <div id="pp-details"></div>
+            </div>
+            <p class="pp-note">Saved in this browser only. Nothing leaves your device.</p>
+          </section>
+        </aside>
       </div>
 
-      <div class="select-actions">
-        <p class="select-hint">Tap a unit to select the whole unit, or expand it (▾) to choose individual topics. Combine any units and topics, then confirm.</p>
-        <div class="bulk">
-          <button id="select-all" class="btn btn-ghost">Select all</button>
-          <button id="clear-selection" class="btn btn-ghost">Clear</button>
+      <footer class="site-footer">
+        <div class="wrap footer-inner">
+          <p>Free and open. Not affiliated with or endorsed by the College Board. AP&reg; is a trademark registered by the College Board.</p>
         </div>
-      </div>
-      <div id="unit-grid" class="unit-list"><!-- units injected here --></div>
-
-      <div id="confirm-bar" class="confirm-bar hidden">
-        <span id="selection-summary" class="selection-summary"></span>
-        <button id="confirm-start" class="btn btn-primary" disabled>Start practice →</button>
-      </div>
+      </footer>
     </section>
 
     <!-- ============ QUIZ SCREEN ============ -->
     <section id="quiz-screen" class="hidden">
-      <div class="quiz-top">
-        <button class="btn btn-ghost back-btn" data-back="selection">← Exit</button>
-        <div class="quiz-top-right">
-          <div id="timer" class="timer hidden"></div>
-          <div id="progress" class="progress"></div>
+      <div class="quiz-bar">
+        <div class="wrap quiz-bar-inner">
+          <button type="button" class="link-btn exit" data-back="selection">&larr; Exit set</button>
+          <div class="quiz-bar-right">
+            <span class="scope-label" id="scope-label"></span>
+            <span id="timer" class="timer hidden"></span>
+          </div>
         </div>
       </div>
-      <div class="scope-label" id="scope-label"></div>
-
-      <article class="question-card">
-        <div class="q-meta" id="q-meta"></div>
-        <div class="q-context" id="q-context"></div>
-        <div class="q-stem" id="q-stem"></div>
-        <div id="answer-area"></div>
-        <div class="solution hidden" id="solution">
-          <h3>Solution</h3>
-          <div id="solution-body"></div>
-        </div>
-      </article>
-
-      <div class="quiz-nav">
-        <button id="next-btn" class="btn btn-primary" disabled>Next →</button>
+      <div class="wrap quiz-wrap">
+        <div id="quiz-main"><!-- question content injected here --></div>
       </div>
     </section>
 
     <!-- ============ RESULTS SCREEN ============ -->
     <section id="results-screen" class="hidden">
-      <h2 class="section-title">Set complete</h2>
-      <div id="score-summary" class="score-summary"></div>
-      <div class="results-actions">
-        <button id="retry-btn" class="btn btn-primary">New set, same scope</button>
-        <button class="btn btn-ghost" data-back="selection">Back to units</button>
-      </div>
+      <div id="results-main"><!-- results injected here --></div>
     </section>
   </main>
-
-  <footer class="site-footer">
-    <div class="wrap">
-      <p>
-        Free to use. Not affiliated with or endorsed by the College Board.
-        AP® is a trademark registered by the College Board.
-      </p>
-    </div>
-  </footer>
 
   <script src="data/units.js"></script>
   <script src="data/questions.js"></script>
